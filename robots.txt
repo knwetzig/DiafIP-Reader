@@ -1,0 +1,6 @@
+# robots.txt zu http://diafip.diaf.de/
+
+User-agent: *
+Disallow: /templates/
+Disallow: /configs/
+Disallow: /class/
