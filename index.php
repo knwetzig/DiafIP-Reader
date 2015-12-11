@@ -12,18 +12,18 @@
      * @requirement PHP Version >= 5.4
      */
 
-    // Variablen zum Profiling
     require_once 'configs/config.local.php';
     require_once 'configs/config.php';
     $_POST = normtext($_POST);              // Filter für htmlentities
     $_GET = normtext($_GET);
+    session_start();
+    if(!isset($_SESSION['lang'])) $_SESSION['lang'] = 'de';
 
     // DB-Initialisierung
     $db = MDB2::singleton($dsn, ['use_transactions' => true, 'persistent' => true]);
     IsDbError($db);
     $db->setFetchMode(MDB2_FETCHMODE_ASSOC);
     $db->loadModule('Extended');
-    if(empty($_SESSION['lang'])) $_SESSION['lang'] = 'de';
 
     // Abfangen von Aktionen die nicht durch nachfolgende Eventhandler bedient werden
     if (isset($_GET['aktion'])) switch ($_GET['aktion']) :
@@ -38,9 +38,6 @@
         case 'de' :
             $db->query("SET datestyle TO German");
             break;
-        case 'us' :
-            $db->query("SET datestyle TO US");
-            break;
         case 'en' :
         case 'fr' :
             $db->query("SET datestyle TO European");
@@ -51,7 +48,7 @@
 
     // Laden der Klassen
     require_once 'entity.class.php';        // Basisklasse
-    require_once 'pname.class.php';        // Aliasnamen
+    require_once 'pname.class.php';         // Aliasnamen
     require_once 'person.class.php';        // Personenklasse
     require_once 'fibimain.class.php';      // Basisklasse für Biblio-/Filmogr. Daten
     require_once 'figd2.class.php';         // Filmografische Daten

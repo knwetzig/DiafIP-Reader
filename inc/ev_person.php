@@ -26,8 +26,7 @@
         switch ($_REQUEST['aktion']) :
             case "search" :
                 if (isset($_POST['sstring'])) :
-                    $_SESSION['search'] = $_POST['sstring'];
-                    $PersonList = PName::search($_SESSION['search']);
+                    $PersonList = PName::search($_POST['sstring']);
                     if (is_array($PersonList)) :
                         // Ausgabe
                         $bg = 1;
