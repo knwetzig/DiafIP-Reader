@@ -1,4 +1,4 @@
-<?php namespace DiafIP {
+<?php namespace DiafIPReader {
     /**
      * Diese Klasse stellt Grundlegende Eigenschaften und Methoden für ihre
      * Kindklassen bereit.
@@ -10,7 +10,7 @@
      * @author      Knut Wetzig <knwetzig@gmail.com>
      * @copyright   2015 Deutsches Institut für Animationsfilm e.V.
      * @license     http://opensource.org/licenses/BSD-3-Clause BSD-3 License
-     * @package     DiafIP-Reader\Entity
+     * @package     DiafIPReader-Reader\Entity
      * @since       r99 Aufteilung Klasse
      */
     interface iEntity {

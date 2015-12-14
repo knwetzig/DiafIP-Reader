@@ -1,4 +1,4 @@
-<?php namespace DiafIP {
+<?php namespace DiafIPReader {
     use MDB2;
     /**
      * Klassenbibliotheken für Personen und Aliasnamen
@@ -47,6 +47,8 @@
                                 WHERE (del = FALSE) AND ((nname ILIKE ?) OR (vname ILIKE ?))
                                 ORDER BY nname,vname;',
 
+            SQL_SEARCH_FIRSTCHAR  = 'SELECT id FROM p_namen WHERE (del = FALSE) AND ((nname ILIKE ?)) ORDER BY nname;',
+
             TYPENAME         = 'text,text,';
 
         /**
@@ -75,7 +77,7 @@
                     $this->content['nname'] = $data['nname'];
                     $this->alias            = self::getPerson();
                 else :
-                    feedback("Fehler bei der Initialisierung im Objekt \'PName\'", 'error'); // #4
+                    feedback(4, 'error');
                     exit(4);
                 endif;
             endif;
@@ -140,8 +142,6 @@
          *                          und dieses recht komplizierte Konstrukt auflöst ;-)
          */
         static function getUnusedAliasNameList() {
-            global $str;
-
             $db   = MDB2::singleton();
             $erg  = [];
             $data = $db->extended->getAll(self::SQL_GET_ALIAS, ['integer', 'text', 'text']);
@@ -150,9 +150,21 @@
             $all  = $db->extended->getAll(self::SQL_GET_NAMES, ['integer', 'text', 'text']);
             IsDbError($all);
             $all    = self::arrpack($all);
-//            $erg[0] = $str->getStr(0); // kein Eintrag
             $erg += array_diff($all, $data);
             return $erg;
+        }
+
+        /**
+         * Sucht alle Namen mit dem Anfangsbuchstaben (nicht Literal)
+         *
+         * @param string $s Suchmuster
+         * @return array|null  Id's oder null (Namen und Personen)
+         */
+        public static function listNames($s) {
+            $db  = MDB2::singleton();
+            $data = $db->extended->getCol(self::SQL_SEARCH_FIRSTCHAR, 'integer', "$s%");
+            IsDbError($data);
+            return $data;
         }
 
         /**

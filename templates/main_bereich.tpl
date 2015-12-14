@@ -1,8 +1,8 @@
-<div id='bereich'>
+<form action='{$dlg['phpself']}' method='post'>
+    <div id='bereich'>
     {$dialog['bereich'][1]}
 
         <span id='bearbbtn'>
-            <form action='{$dlg['phpself']}' method='post'>
                 <input title="{$dialog['sstring'][2]}"
                 type='text'
                 name='sstring'
@@ -19,7 +19,7 @@
                 name='aktion'
                 value='search'
                 />
-            </form>
-
-    </span>
-</div>
+        </span>
+    </div>
+</form>
+<div id="picklist">{if !empty($dialog['picklist'])}{$dialog['picklist'][1]}{/if}</div>

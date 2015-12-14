@@ -1,4 +1,4 @@
-<?php namespace DiafIP;
+<?php namespace DiafIPReader;
 use MDB2;
 /**
  *  Klassenbibliotheken für die Verwaltung von Orten (Personen/ Lagermöglichkeiten)

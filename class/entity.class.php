@@ -1,4 +1,4 @@
-<?php namespace DiafIP {
+<?php namespace DiafIPReader {
     use MDB2;
     /**
      * Diese Klasse stellt Grundlegende Eigenschaften und Methoden für ihre
@@ -11,7 +11,7 @@
      * @author      Knut Wetzig <knwetzig@gmail.com>
      * @copyright   2015 Deutsches Institut für Animationsfilm e.V.
      * @license     http://opensource.org/licenses/BSD-3-Clause BSD-3 License
-     * @package     DiafIP-Reader\Entity
+     * @package     DiafIPReader-Reader\Entity
      * @requirement PHP Version >= 5.4
      */
     abstract class Entity implements iEntity {

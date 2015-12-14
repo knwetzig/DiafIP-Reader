@@ -1,5 +1,5 @@
-<?php namespace DiafIP {
-    use MDB2, ErrorException, DateTime, DateInterval;
+<?php namespace DiafIPReader {
+    use MDB2;
     /**
      * Klassenbibliotheken für Personen und Aliasnamen
      *
@@ -12,7 +12,7 @@
      * @author      Knut Wetzig <knwetzig@gmail.com>
      * @copyright   2014 Deutsches Institut für Animationsfilm e.V.
      * @license     http://opensource.org/licenses/BSD-3-Clause BSD-3 License
-     * @package     DiafIP\Person
+     * @package     DiafIPReader\Person
      * @version     $Id$
      * @since       r52
      * @requirement PHP Version >= 5.4
@@ -22,7 +22,8 @@
         const
             TYPEPERSON = 'date,integer,date,integer,text',
             SQL_GET_DATA    = 'SELECT gtag, gort, ttag, tort, strasse, plz, wort, tel, mail, aliases
-                          FROM p_person2 WHERE id = ?;';
+                          FROM p_person2 WHERE id = ?;',
+            SQL_GET_ALL_PERSONS ='SELECT id FROM p_person2 WHERE del = FALSE;';
 
         /**
          * Initialisiert das Personenobjekt
@@ -43,6 +44,13 @@
                 self::WertZuwCont($data);
             endif;
             return null;
+        }
+
+        public static function getAllPersons() {
+            $db = MDB2::singleton();
+            $data = $db->extended->getCol(self::SQL_GET_ALL_PERSONS,'integer');
+            IsDbError($data);
+            return $data;
         }
 
         /**

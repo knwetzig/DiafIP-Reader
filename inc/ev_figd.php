@@ -1,4 +1,4 @@
-<?php namespace DiafIP {
+<?php namespace DiafIPReader {
     global $marty, $str;
     /**
      *
@@ -11,11 +11,23 @@
      *
      */
 
+    // Anzeige eines zufälligen Films
+    $list = Film::getAllFilms();
+    $key = rand(1, count($list));
+
+    // Picklist
+    $picklist = '|&nbsp;';
+    for($i=65; $i <= 90; $i++) :
+        $picklist .= "<a href='index.php?sektion=F&aktion=Pick&C=".chr($i)."'>".chr($i)."</a>&nbsp;|&nbsp;";
+    endfor;
+    $picklist .= "<br>";
+
     // Kopfbereich
     $data = a_display([
               // name,inhalt,rechte, optional-> $label,$tooltip,valString
               new d_feld('bereich', $str->getStr(4008)),
               new d_feld('sstring', $str->getStr(4011)),
+              new d_feld('picklist', $picklist),
               new d_feld('sektion', 'F'),
                       ]);
     $marty->assign('dialog', $data);
@@ -51,11 +63,26 @@
                 endif;
                 break;
 
+            case "Pick" :
+                $bg = 1;
+                foreach (Film::listTitels($_GET['C']) as $wert) :
+                    ++$bg;
+                    $marty->assign('darkBG', $bg % 2);
+                    $pers = new Film($wert);
+                    $pers->display('figd_ldat.tpl');
+                    unset($pers);
+                endforeach;
+                break;
+
             case 'view' :
                 $motpic = new Film(intval($_REQUEST['id']));
                 $motpic->display('figd_dat.tpl');
                 break;
 
         endswitch;
+    else:
+        // aus irgend welchen Gründen wurde keine 'aktion' ausgelöst?
+        $film = new Film($list[$key]);
+        $film->display('figd_dat.tpl');
     endif;
 }

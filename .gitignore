@@ -1,4 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
+## Other
+*~
+*~.*
+/tests/muster_test.php
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion
 

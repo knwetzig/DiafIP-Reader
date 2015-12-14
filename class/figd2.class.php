@@ -1,18 +1,19 @@
-<?php namespace DiafIP {
-    use Exception, MDB2;
+<?php namespace DiafIPReader {
+    use MDB2;
     /**
      * Klassenbibliotheken für Filmografische Daten
      *
      * @author      Knut Wetzig <knwetzig@gmail.com>
      * @copyright   2014 Deutsches Institut für Animationsfilm e.V.
      * @license     http://opensource.org/licenses/BSD-3-Clause BSD-3 License
-     * @package     DiafIP
+     * @package     DiafIPReader
      * @version     $Id$
      * @since       r52
      * @requirement PHP Version >= 5.4
      */
     final class Film extends FibiMain {
         const
+            SQL_GET_ALL_FILMS   = 'SELECT id FROM f_film2 WHERE del = FALSE;',
             SQL_GET_FILM        = 'SELECT gattung,prodtechnik,fsk,praedikat,mediaspezi,urauffuehr,laenge,bildformat
                                    FROM f_film2
                                    WHERE id = ?;',
@@ -27,6 +28,8 @@
 
             SQL_GET_GENRE       = 'SELECT * FROM f_genre;',
 
+            SQL_SEARCH_FIRSTCHAR = 'SELECT id FROM f_film2 WHERE (del = FALSE) AND titel ILIKE ? ORDER BY titel;',
+
             SQL_GET_MEDIASPEZ   = 'SELECT * FROM f_mediaspezi;',
 
             SQL_GET_PRAED       = 'SELECT * FROM f_praed ORDER BY praed ASC;',
@@ -34,8 +37,6 @@
             SQL_GET_PRODTECHNIK = 'SELECT * FROM f_prodtechnik;',
 
             TYPE_FILM           = 'integer,integer,integer,integer,integer,date,text,integer';
-
-        private $fehler = [];
 
         public function __construct($nr = null) {
             parent::__construct($nr);
@@ -55,17 +56,27 @@
         }
 
         /**
-         * @return array
+         * Gibt eine Liste mit allen ungelöschten Film-IDs zurück
+         * @return mixed
          */
-        public function getContent() {
-            return $this->content;
+        public static function getAllFilms() {
+            $db = MDB2::singleton();
+            $data = $db->extended->getCol(self::SQL_GET_ALL_FILMS,'integer');
+            IsDbError($data);
+            return $data;
         }
 
         /**
-         * @param array $content
+         * Sucht alle Namen mit dem Anfangsbuchstaben (nicht Literal)
+         *
+         * @param string $s Suchmuster
+         * @return array|null  Id's oder null (Namen und Personen)
          */
-        public function setContent($content) {
-            $this->content = $content;
+        public static function listTitels($s) {
+            $db  = MDB2::singleton();
+            $data = $db->extended->getCol(self::SQL_SEARCH_FIRSTCHAR, 'integer', "$s%");
+            IsDbError($data);
+            return $data;
         }
 
         /**

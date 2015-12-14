@@ -1,4 +1,4 @@
-<?php namespace DiafIP {
+<?php namespace DiafIPReader {
     global $datei, $marty;
 
     /**

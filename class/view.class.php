@@ -1,4 +1,4 @@
-<?php namespace DiafIP {
+<?php namespace DiafIPReader {
     /**
      * Stellt Klassen und Funktionen für die
      * Ein-/Ausgabefunktionalität bereit.

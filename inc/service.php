@@ -1,5 +1,5 @@
-<?php namespace DiafIP {
-    use MDB2, DateTime;
+<?php namespace DiafIPReader {
+    use MDB2;
     /**
      *      Lose Sammlung diverser Funktionen
      *
@@ -226,7 +226,7 @@ VIS;
             // wandelt Zeichen in Umschreibung ('>' --> '&gt;' usw. )
             return trim(htmlspecialchars($var, ENT_NOQUOTES, 'UTF-8'));
         else :
-            return array_map('DiafIP\normtext', $var);
+            return array_map('DiafIPReader\normtext', $var);
         endif;
     }
 

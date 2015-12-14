@@ -1,4 +1,4 @@
-<?php namespace DiafIP {
+<?php namespace DiafIPReader {
     /***************************************************************
      * Der locale Teil der Konfigurationsdatei für Pfade / DSN-Ort
      *

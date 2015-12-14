@@ -102,6 +102,10 @@ button.flag {
     height: 22px;
 }
 
+#bearbbtn {
+    float: right;
+}
+
 #bereich {
     /* Überschrift und Suchfeld -> Bereich */
     top: 0;
@@ -114,23 +118,9 @@ button.flag {
     border-bottom: 1px solid #0080ff;
 }
 
-#ueschrift {
-    color: #0080ff;
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#suchfeld {
-    /* Container für Floatobjekte 'bearbbtn' und 'left' */
-    padding-bottom: 0.2em;
-    padding-top: 0.5em;
-    overflow: auto;
-}
-
-#bearbbtn {
-    float: right;
+#einzug {
+    padding-left: 3em;
+    clear: both;
 }
 
 #left {
@@ -141,9 +131,26 @@ button.flag {
     padding: 10px auto;
 }
 
-#einzug {
-    padding-left: 3em;
-    clear: both;
+#picklist {
+    font-size: smaller;
+    color: lightgrey;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#suchfeld {
+    /* Container für Floatobjekte 'bearbbtn' und 'left' */
+    padding-bottom: 0.2em;
+    padding-top: 0.5em;
+    overflow: auto;
+}
+
+#ueschrift {
+    color: #0080ff;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 div#overDiv {
